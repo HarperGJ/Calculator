@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>calculator buttons</title>
+		<style>
+		body { background-color: #5e5f66; }
+		button#num0 {
+		width: 108px;
+		}
+		
+		button.calc {
+		height: 50px;
+		width: 50px;
+		margin: 2px;
+		top: 100px;
+		background-color: #b7b7b7;
+		border: 1px solid #5e5f66;
+		font-size: 30px;
+		text-align: center;
+		color: white;
+		}
+		
+		div#output {
+		height: 50px;
+		background-color: #7c7c7c;
+		width: 222px;
+		margin: 3px;
+		font-family: verdana;
+		font-size: 28px;
+		color: white;
+		}
+		
+		div#ET {
+		transform: translate(40%, 60%);
+		}
+		
+		</style>
+	</head>
+	<body>
+	
+	<div id="ET">
+	<div id="output"> </div>
+	<button class="calc" id="numCE" onClick="CE()"> CE </button>
+	<button class="calc" id="numC" onClick="C()"> C </button>
+	<button class="calc" id="numBS" onClick="BS()"> < </button>
+	<button class="calc" id="num/" onClick="div()"> / </button> <br>
+	<button class="calc" id="num1" onClick="press1()"> 1 </button>
+	<button class="calc" id="num2" onClick="press2()"> 2 </button>
+	<button class="calc" id="num3" onClick="press3()"> 3 </button>
+	<button class="calc" id="num*" onClick="mul()"> * </button> <br>
+	<button class="calc" id="num4" onClick="press4()"> 4 </button>
+	<button class="calc" id="num5" onClick="press5()"> 5 </button>
+	<button class="calc" id="num6" onClick="press6()"> 6 </button> 
+	<button class="calc" id="num-" onClick="min()"> - </button> <br>
+	<button class="calc" id="num7" onClick="press7()"> 7 </button>
+	<button class="calc" id="num8" onClick="press8()"> 8 </button>
+	<button class="calc" id="num9" onClick="press9()"> 9 </button>
+	<button class="calc" id="num+" onClick="plus()"> + </button> <br>
+	<button class="calc" id="num0" onclick="press0()"> 0 </button>
+	<button class="calc" id="dot" onClick="dot()"> . </button>
+	<button class="calc" id="numEQ" onClick="equals()"> = </button>
+	</div>
+
+		<script>
+		var curent = "";	//sets the variable that is displayed
+		var Numbers = [];	//numbers to add
+		var operator;	 	//the operator
+		
+		setInterval (loop, 1) //character limiter
+		function loop() {
+		if (curent.length >= 12) { BS() }
+		}
+		
+		function press1() { //adds a one to the display and updates it
+		curent += "1"
+		document.getElementById("output").innerHTML = curent;
+		}
+		function press2() { //adds a two to the display and updates it
+		curent += "2"
+		document.getElementById("output").innerHTML = curent;
+		}
+		function press3() { //adds a three to the display and updates it
+		curent += "3"
+		document.getElementById("output").innerHTML = curent;
+		}
+		function press4() { //adds a four to the display and updates it
+		curent += "4"
+		document.getElementById("output").innerHTML = curent;
+		}
+		function press5() { //adds a five to the display and updates it
+		curent += "5"
+		document.getElementById("output").innerHTML = curent;
+		}
+		function press6() { //adds a six to the display and updates it
+		curent += "6"
+		document.getElementById("output").innerHTML = curent;
+		}
+		function press7() { //adds a seven to the display and updates it
+		curent += "7"
+		document.getElementById("output").innerHTML = curent;
+		}
+		function press8() { //adds a eight to the display and updates it
+		curent += "8"
+		document.getElementById("output").innerHTML = curent;
+		}
+		function press9() { //adds a nine to the display and updates it
+		curent += "9"
+		document.getElementById("output").innerHTML = curent;
+		}
+		function press0() { //adds a zero to the display and updates it
+		curent += "0"
+		document.getElementById("output").innerHTML = curent;
+		}
+		function dot() { 	//adds a dot to the display and updates it
+		curent +="."
+		document.getElementById("output").innerHTML = curent;
+		}
+		
+		function C() { 	//clears the curent number
+		curent = " " //resets curent
+		document.getElementById("output").innerHTML = curent; //updates display1
+		}
+		function CE() { //clears everything
+		curent = " ";	//resets curent
+		Numbers = [];	//resets Nums
+		answer = 0;		//resets answer
+		answerS = 0;	//resets answerS
+		rounded = 0; 	//resets answer_rounded
+		myArray = 0; 	//resets myArray
+		document.getElementById("output").innerHTML = curent; //updates display
+		}
+		function BS() { //backspace
+		curent = curent.slice(0, -1); //takes a digit off the left
+		document.getElementById("output").innerHTML = curent; //resets the display
+		}
+		
+		function plus() { //sets operator in a num system and runs toggle
+		operator = "+"
+		Nums()
+		}
+		function min() { //sets operator in a num system and runs toggle
+		operator = "-"
+		Nums()
+		}
+		function mul() { //sets operator in a num system and runs toggle
+		operator = "*"
+		Nums()
+		}
+		function div() { //sets operator in a num system and runs toggle
+		operator = "/"
+		Nums()
+		}
+		
+		function Nums() {
+		Numbers.push(curent, operator);
+		curent = "";
+		document.getElementById("output").innerHTML = curent;
+		}
+		
+		var myArray //declares variables for equals() (needs to be global for CE())
+		var answer
+		
+		function equals() { //does the calculations
+		operator = "=" 		//to not stuff it up
+		Nums()				//finalizes numbers
+		Numbers.pop();		//removes unnecessary junk
+		
+		if (Numbers[0] == 9 && Numbers[1] == "+" && Numbers[2] == 10) {
+		answer = 21 					//9 + 10 = 21
+		}
+		else {
+		myArray = Numbers.join(" ");	//converts to string
+		answer = eval(myArray);			//does math
+		}
+		
+		document.getElementById("output").innerHTML = String(answer).substr(0,12);; //updates display and apply limit
+		
+		Numbers = [answer]; //so you can keep doing math
+		}
+		
+		</script>
+	</body>
+</html>
